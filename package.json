@@ -1,0 +1,42 @@
+{
+  "name": "your-project-name-here",
+  "version": "1.0.0",
+  "description": "Your project description here",
+  "main": "dist/index.js",
+  "author": "your name here",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "husky install",
+    "start": "yarn ts-node-dev --rs --respawn --transpile-only src/index.ts",
+    "docs": "typedoc --entryPoints src/index.ts",
+    "test": "jest",
+    "test-watch": "jest --watchAll",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rimraf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "build-all": "yarn lint && yarn clean && yarn build"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "@types/node": "^17.0.33",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^28.0.2",
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
+    "tslib": "^2.4.0",
+    "typedoc": "^0.22.15",
+    "typescript": "^4.6.4"
+  },
+  "packageManager": "yarn@3.2.1"
+}
