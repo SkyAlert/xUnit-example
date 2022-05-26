@@ -14,6 +14,7 @@
     "lint": "eslint src/**/*.ts",
     "clean": "rimraf dist",
     "build": "tsc -p tsconfig.build.json",
+    "build-watch": "tsc --watch -p tsconfig.build.json",
     "build-all": "yarn lint && yarn clean && yarn build"
   },
   "devDependencies": {
