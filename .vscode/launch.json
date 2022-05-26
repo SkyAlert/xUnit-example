@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Yarn start. Watch application",
+      "runtimeExecutable": "yarn",
+      "args": ["start"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Yarn test. Run all tests",
+      "runtimeExecutable": "yarn",
+      "env": { "CI": "true" },
+      "args": ["test"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Yarn test watch. Watch all tests",
+      "runtimeExecutable": "yarn",
+      "args": ["test", "--watchAll"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

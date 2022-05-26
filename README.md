@@ -20,6 +20,7 @@ Clone this project to jump-start a TS project. It contains tools and configurati
 - `lint` - check for style errors and warnings
 - `clean` - delete `./dist` folder
 - `build` - transpile into `./dist` folder
+- `build-watch` - watch for changes and transpile into `./dist` folder
 - `build-all` - check for style errors, delete `./dist` and build
 
 # Installation
