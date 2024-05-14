@@ -1,27 +1,44 @@
-// da code
-export const sum = (a: number, b: number): number => a + b;
+/* eslint-disable max-classes-per-file */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-console */
 
-// xUnit
-const xTest = {
-  run: (name: string, test: () => void) => {
-    try {
-      test();
-      console.log(`✅ ${name}`);
-    } catch (err) {
-      console.log(`❌ ${name}`);
+import assert from 'assert';
+
+class TestCase {
+  constructor(public name: string) {}
+
+  run() {
+    // @ts-ignore: I know what im doing
+    if (this[this.name] instanceof Function) {
+      // @ts-ignore: I really know what im doing
+      this[this.name]();
     }
-  },
-};
-
-// Tests
-xTest.run('adds 1 + 2 to equal 3', () => {
-  if (sum(1, 2) !== 3) {
-    throw new Error('Test failed');
   }
-});
+}
 
-xTest.run('adds 1 + 3 to equal 4', () => {
-  if (sum(1, 3) !== 4) {
-    throw new Error('Test failed');
+class WasRun extends TestCase {
+  public wasRun: boolean;
+
+  constructor(name: string) {
+    super(name);
+    this.wasRun = false;
   }
-});
+
+  testMethod() {
+    this.wasRun = true;
+  }
+}
+
+class TestCaseTest extends TestCase {
+  // eslint-disable-next-line class-methods-use-this
+  testRunning() {
+    const myTest = new WasRun('testMethod');
+    assert(!myTest.wasRun);
+    myTest.run();
+    assert(myTest.wasRun);
+  }
+}
+
+const test = new TestCaseTest('testRunning');
+test.run();
