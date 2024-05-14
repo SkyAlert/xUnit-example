@@ -1,5 +1,4 @@
-// da code
-export const sum = (a: number, b: number): number => a + b;
+import assert from 'assert';
 
 // xUnit
 const xTest = {
@@ -14,14 +13,12 @@ const xTest = {
 };
 
 // Tests
-xTest.run('adds 1 + 2 to equal 3', () => {
-  if (sum(1, 2) !== 3) {
-    throw new Error('Test failed');
-  }
-});
 
-xTest.run('adds 1 + 3 to equal 4', () => {
-  if (sum(1, 3) !== 4) {
-    throw new Error('Test failed');
-  }
+xTest.run('Test did run', () => {
+  let didRun = false;
+  xTest.run('Dummy test', () => {
+    didRun = true;
+  });
+
+  assert(didRun);
 });
