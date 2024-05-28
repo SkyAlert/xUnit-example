@@ -21,53 +21,39 @@ class TestCase {
       // @ts-ignore: I really know what im doing
       this[this.name]();
     }
+
+    this.tearDown();
   }
+
+  tearDown() {}
 }
 
 // WasRun is a helper class to test the test framework
 class WasRun extends TestCase {
-  public wasRun: boolean | undefined;
-  public wasSetUp: boolean;
-
-  constructor(name: string) {
-    super(name);
-    this.wasSetUp = false;
-  }
+  public log: string | undefined;
 
   override setUp() {
-    this.wasRun = false;
-    this.wasSetUp = true;
+    this.log = 'setUp ';
   }
 
   testMethod() {
-    this.wasRun = true;
+    this.log += 'testMethod ';
+  }
+
+  override tearDown() {
+    this.log += 'tearDown ';
   }
 }
 
 // TestCaseTest defines the tests for the test framework
 class TestCaseTest extends TestCase {
-  private test: WasRun | undefined;
-
-  override setUp(): void {
-    this.test = new WasRun('testMethod');
-  }
-
-  testSetUp() {
-    assert(this.test);
-    this.test.run();
-    assert(this.test.wasSetUp);
-  }
-
-  testRunning() {
-    assert(this.test);
-    this.test.run();
-    assert(this.test.wasRun);
+  testTemplateMethod() {
+    const test = new WasRun('testMethod');
+    test.run();
+    assert(test.log === 'setUp testMethod tearDown ');
   }
 }
 
 // Run the tests
-const test = new TestCaseTest('testRunning');
+const test = new TestCaseTest('testTemplateMethod');
 test.run();
-
-const test2 = new TestCaseTest('testSetUp');
-test2.run();
