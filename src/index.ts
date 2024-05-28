@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/lines-between-class-members */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-prototype-builtins */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 
 import assert from 'assert';
 
+// TestCase is our test framework
 class TestCase {
   constructor(public name: string) {}
 
@@ -21,6 +24,7 @@ class TestCase {
   }
 }
 
+// WasRun is a helper class to test the test framework
 class WasRun extends TestCase {
   public wasRun: boolean | undefined;
   public wasSetUp: boolean;
@@ -40,6 +44,7 @@ class WasRun extends TestCase {
   }
 }
 
+// TestCaseTest defines the tests for the test framework
 class TestCaseTest extends TestCase {
   private test: WasRun | undefined;
 
@@ -53,7 +58,6 @@ class TestCaseTest extends TestCase {
     assert(this.test.wasSetUp);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   testRunning() {
     assert(this.test);
     this.test.run();
@@ -61,6 +65,7 @@ class TestCaseTest extends TestCase {
   }
 }
 
+// Run the tests
 const test = new TestCaseTest('testRunning');
 test.run();
 
