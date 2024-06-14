@@ -9,17 +9,23 @@ import assert from 'assert';
 
 class TestResult {
   public runCount: number;
+  public errorCount: number;
 
   constructor() {
     this.runCount = 0;
+    this.errorCount = 0;
   }
 
   testStarted() {
     this.runCount += 1;
   }
 
+  testFailed() {
+    this.errorCount += 1;
+  }
+
   summary() {
-    return `${this.runCount} run, 0 failed`;
+    return `${this.runCount} run, ${this.errorCount} failed`;
   }
 }
 
@@ -30,14 +36,19 @@ class TestCase {
   setUp() {}
 
   run() {
-    this.setUp();
     const result = new TestResult();
     result.testStarted();
 
-    // @ts-ignore: I know what im doing
-    if (this[this.name] instanceof Function) {
-      // @ts-ignore: I really know what im doing
-      this[this.name]();
+    this.setUp();
+
+    try {
+      // @ts-ignore: I know what im doing
+      if (this[this.name] instanceof Function) {
+        // @ts-ignore: I really know what im doing
+        this[this.name]();
+      }
+    } catch (error) {
+      result.testFailed();
     }
 
     this.tearDown();
@@ -83,11 +94,18 @@ class TestCaseTest extends TestCase {
     assert(result.summary() === '1 run, 0 failed');
   }
 
-  // testFailedResult() {
-  //   const test = new WasRun('testBrokenMethod');
-  //   const result = test.run();
-  //   assert(result.summary() === '1 run, 1 failed');
-  // }
+  testFailedResultFormatting() {
+    const result = new TestResult();
+    result.testStarted();
+    result.testFailed();
+    assert(result.summary() === '1 run, 1 failed');
+  }
+
+  testFailedResult() {
+    const test = new WasRun('testBrokenMethod');
+    const result = test.run();
+    assert(result.summary() === '1 run, 1 failed');
+  }
 }
 
 // Run the tests
@@ -97,5 +115,8 @@ test.run();
 const test2 = new TestCaseTest('testResult');
 test2.run();
 
-// const test3 = new TestCaseTest('testFailedResult');
-// test3.run();
+const test3 = new TestCaseTest('testFailedResult');
+test3.run();
+
+const test4 = new TestCaseTest('testFailedResultFormatting');
+test4.run();
