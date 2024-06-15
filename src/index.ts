@@ -71,9 +71,9 @@ class WasRun extends TestCase {
     this.log += 'testMethod ';
   }
 
-  // testBrokenMethod() {
-  //   throw new Error('This is a broken method');
-  // }
+  testBrokenMethod() {
+    throw new Error('This is a broken method');
+  }
 
   override tearDown() {
     this.log += 'tearDown ';
@@ -110,13 +110,13 @@ class TestCaseTest extends TestCase {
 
 // Run the tests
 const test = new TestCaseTest('testTemplateMethod');
-test.run();
+console.log(test.run().summary());
 
 const test2 = new TestCaseTest('testResult');
-test2.run();
+console.log(test2.run().summary());
 
 const test3 = new TestCaseTest('testFailedResult');
-test3.run();
+console.log(test3.run().summary());
 
 const test4 = new TestCaseTest('testFailedResultFormatting');
-test4.run();
+console.log(test4.run().summary());
