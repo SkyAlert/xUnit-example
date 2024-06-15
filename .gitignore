@@ -33,4 +33,4 @@ yarn-error.log*
 # Docs - please generate on demand
 /docs
 
-.viscode/launch.json
+.vscode/launch.json
